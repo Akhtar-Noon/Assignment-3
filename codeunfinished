@@ -1,0 +1,209 @@
+using GLib;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using VisioForge.Libs.MediaFoundation.OPM;
+using VisioForge.MediaFramework.DSP;
+
+namespace Assignment_3
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+
+            Program program = new Program();
+            List<BasicInfo> N = program.GetSelectedCandidates();
+            program.GetRegesteredCandidates();
+            program.GetSelectedCandidates();
+            List<BasicInfo> selectedStudents = program.GetSelectedCandidates();
+            
+            Random ranomMarks = new Random();    //ramdom function create krli subah
+
+
+            for (int i = 0; i < selectedStudents.Count; i++)
+            {
+                selectedStudents[i].assign1Marks = ranomMarks.Next(100);
+                selectedStudents[i].assign2Marks = ranomMarks.Next(100);
+                selectedStudents[i].totalMarks = selectedStudents[i].assign1Marks + selectedStudents[i].assign2Marks;
+            }
+
+
+
+
+            Console.WriteLine("All Candidates Data");
+            for (int counter = 0; counter < selectedStudents.Count(); counter++)
+            {
+                BasicInfo print = selectedStudents[counter];
+
+                Console.WriteLine(@"Name: " + print.name + "    Residence: " + print.location + "  CGPA:  " + print.cgpa+"  Assignment-1 Marks : "+print.assign1Marks+ "  Assignment-2 Marks : " + print.assign2Marks);
+
+            }
+
+            List<BasicInfo> highGradestudent = new List<BasicInfo>();
+
+            for (int i = 0; i < selectedStudents.Count; i++)
+            {
+                if ((selectedStudents[i].totalMarks) / 2 >= 90)
+                {
+                    highGradestudent.Add(selectedStudents[i]);
+                }
+            }
+
+            Console.WriteLine("Students having 90% Collective marks are");
+
+            for (int i = 0; i < highGradestudent.Count; i++)
+            {
+                Console.WriteLine("Name:  " + highGradestudent[i].name + "  id:  " + highGradestudent[i].cgpa + "  Total Marks: " + (highGradestudent[i].totalMarks / 2) + "%");
+            }
+            Console.ReadLine();
+
+           
+
+        }
+
+        class BasicInfo
+        {
+            public string name, location;
+            public int assign1Marks;
+            public int assign2Marks;
+            public int totalMarks;
+            public double cgpa;
+            public string setName()
+            {
+                return name;
+            }
+            public string setLocation()
+            {
+                return location;
+            }
+            public double setCgpa()
+            {
+                return cgpa;
+            }
+        }
+
+       
+    
+
+        List<BasicInfo> GetRegesteredCandidates()
+        {
+            List<BasicInfo> ListofAllCandidatesData = new List<BasicInfo>();
+
+            BasicInfo student1 = new BasicInfo()
+            {
+                name = "Shoaib",
+                location = "Rawalpindi",
+                cgpa = 2.9,
+
+            };
+
+            BasicInfo student2 = new BasicInfo()
+            {
+                name = "Atif",
+                location = "Okara",
+                cgpa = 2.5,
+
+
+            };
+
+            BasicInfo student3 = new BasicInfo()
+            {
+                name = "waqar",
+                location = "Rawalpindi",
+                cgpa = 3.9,
+
+            };
+
+            BasicInfo student4 = new BasicInfo()
+            {
+                name = "akhtar",
+                location = "Sargodha",
+                cgpa = 2.8,
+
+            };
+            BasicInfo student5 = new BasicInfo()
+            {
+                name = "YYY",
+                location = "YY",
+                cgpa = 2.5,
+            };
+            BasicInfo student6 = new BasicInfo()
+            {
+                name = "XXX",
+                location = "XX",
+                cgpa = 2.6,
+            };
+            BasicInfo student7 = new BasicInfo()
+            {
+                name = "AAA",
+                location = "AA",
+                cgpa = 2.99,
+            };
+            BasicInfo student8 = new BasicInfo()
+            {
+                name = "BBB",
+                location = "BB",
+                cgpa = 3.4,
+            };
+            BasicInfo student9 = new BasicInfo()
+            {
+                name = "CCC",
+                location = "CC",
+                cgpa = 3,
+            };
+            BasicInfo student10 = new BasicInfo()
+            {
+                name = "DDD",
+                location = "DD",
+                cgpa = 3.2,
+            };
+
+            ListofAllCandidatesData.Add(student1);
+             ListofAllCandidatesData.Add(student2);
+             ListofAllCandidatesData.Add(student3);
+             ListofAllCandidatesData.Add(student4);
+             ListofAllCandidatesData.Add(student5);
+             ListofAllCandidatesData.Add(student6);
+             ListofAllCandidatesData.Add(student7);
+             ListofAllCandidatesData.Add(student8);
+             ListofAllCandidatesData.Add(student9);
+             ListofAllCandidatesData.Add(student10);
+
+            return ListofAllCandidatesData;
+        }
+
+
+        List<BasicInfo> GetSelectedCandidates()
+        {
+            Program program = new Program();
+            List<BasicInfo> N = program.GetRegesteredCandidates();
+
+            List<BasicInfo> SelectedCandidates = new List<BasicInfo>();
+
+            for (int counter = 0; counter < N.Count(); counter++)
+            {
+                if (N[counter].cgpa >= 3)
+                {
+
+                    SelectedCandidates.Add(N[counter]);
+                }
+            }
+            //for (int counter = 0; counter < SelectedCandidates.Count(); counter++)
+            //{
+            //    BasicInfo print = SelectedCandidates[counter];
+
+            //    Console.WriteLine(@"Name: " + print.name + "    Residence: " + print.location + "  CGPA:  " + print.cgpa);
+
+            //}
+            return SelectedCandidates;
+        }
+
+
+            
+     }
+ }
+
